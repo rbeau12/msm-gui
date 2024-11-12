@@ -5,7 +5,51 @@
 <a href="/directors">
   Go back
 </a>
+<div>
+  <a href="/delete_director/<%=@the_id%>">
+    Delete director
+  </a>
+</div>
 
+<hr>
+
+<form action="/modify_director/<%=@the_id%>" method="post">
+  <div>
+    <label for="name_box">
+      Name
+    </label>
+
+    <input type="text" id="name_box" name="query_name" value="<%=@aname%>">
+  </div>
+
+  <div>
+    <label for="dob_box">
+      Dob
+    </label>
+
+    <input type="date" id="dob_box" name="query_dob" value="<%=@dob%>">
+  </div>
+
+  <div>
+    <label for="bio_box">
+      Bio
+    </label>
+
+    <textarea id="bio_box" name="query_bio" rows="3"><%=@abio%></textarea>
+  </div>
+
+  <div>
+    <label for="image_box">
+      Image
+    </label>
+
+    <input type="text" id="image_box" name="query_image" value="<%=@aimage%>">
+  </div>
+
+  <button>
+    Update director
+  </button>
+</form>
 <hr>
 
 <dl>

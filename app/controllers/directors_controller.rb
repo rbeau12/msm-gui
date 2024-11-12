@@ -7,11 +7,14 @@ class DirectorsController < ApplicationController
   end
 
   def show
-    the_id = params.fetch("path_id")
+    @the_id = params.fetch("path_id")
 
-    matching_directors = Director.where({ :id => the_id })
+    matching_directors = Director.where({ :id => @the_id })
     @the_director = matching_directors.at(0)
-
+    @aname=@the_director.name
+    @adob=@the_director.dob
+    @abio=@the_director.bio
+    @aimage=@the_director.image
     render({ :template => "director_templates/show" })
   end
 
@@ -35,5 +38,34 @@ class DirectorsController < ApplicationController
     @eldest = directors_by_dob_asc.at(0)
 
     render({ :template => "director_templates/eldest" })
+  end
+  def create
+    c=Director.new
+    c.name=params.fetch(:name)
+    c.dob=params.fetch(:dob)
+    c.bio=params.fetch(:bio)
+    c.image=params.fetch(:image)
+    c.save
+    redirect_to("/directors")
+  end
+  def edit
+    @the_id=params.fetch("path_id")
+    matching_actors = Director.where({ :id => @the_id })
+    the_actor = matching_actors.at(0)
+    the_actor.name=params.fetch("query_name")
+    the_actor.dob=params.fetch("query_dob")
+    the_actor.bio=params.fetch("query_bio")
+    the_actor.image=params.fetch("query_image")
+    the_actor.save
+    link="/directors/"+@the_id.to_s
+    redirect_to(link)
+  end
+  def delete
+    the_id = params.fetch("path_id")
+
+    matching_actors = Director.where({ :id => the_id })
+    @the_actor = matching_actors.at(0)
+    @the_actor.destroy
+    redirect_to("/directors")
   end
 end
